@@ -18,10 +18,11 @@ Uno scanner di rete scritto in Python che esegue in un unico flusso la ricognizi
   - [Struttura del codice](#struttura-del-codice)
   - [Limiti noti](#limiti-noti)
   - [Roadmap](#roadmap)
-    - [✅ v1.1 — Completata](#-v11--completata)
-    - [🚧 v1.2 — Prestazioni](#-v12--prestazioni)
-    - [🔜 v1.3 — Qualità dei risultati](#-v13--qualità-dei-risultati)
+    - [✅ v1.0 — Completata](#-v10--completata)
+    - [🚧 v1.1 — Prestazioni](#-v11--prestazioni)
+    - [🔜 v1.2 — Qualità dei risultati](#-v12--qualità-dei-risultati)
     - [🔭 v2.0 — Estensione del perimetro](#-v20--estensione-del-perimetro)
+    - [🕐 v2.1 - Further improvements](#-v21---further-improvements)
   - [Autore](#autore)
 
 ---
@@ -147,7 +148,7 @@ Scan completed in 0:03:12.481920
 
 ## Roadmap
 
-### ✅ v1.1 — Completata
+### ✅ v1.0 — Completata
 
 - [x] Range di porte inclusivo
 - [x] Timeout applicato anche alla connessione del banner grabbing
@@ -157,7 +158,7 @@ Scan completed in 0:03:12.481920
 - [x] Validazione delle porte e interruzione pulita con Ctrl+C
 - [x] Documentazione completa del codice tramite docstring
 
-### 🚧 v1.2 — Prestazioni
+### 🚧 v1.1 — Prestazioni
 
 - [ ] Port scan concorrente con `ThreadPoolExecutor` o `asyncio`
 - [ ] Timeout configurabile da riga di comando
@@ -165,11 +166,12 @@ Scan completed in 0:03:12.481920
 - [ ] Flag `--no-vuln` per una ricognizione rapida senza Nmap
 - [ ] Controllo iniziale della presenza di Nmap e dei privilegi di root
 
-### 🔜 v1.3 — Qualità dei risultati
+### 🔜 v1.2 — Qualità dei risultati
 
 - [ ] Probe attivi per i servizi "silenziosi", come la richiesta HTTP `HEAD` e il banner TLS sulla 443
 - [ ] Esportazione dei risultati in JSON e CSV (`-o report.json`)
 - [ ] Logging con livelli di verbosità (`-v`, `-vv`)
+- [ ] Ricerca vulnerabilità in Database noti CVE
 
 ### 🔭 v2.0 — Estensione del perimetro
 
@@ -177,7 +179,10 @@ Scan completed in 0:03:12.481920
 - [ ] Fase di host discovery
 - [ ] Supporto IPv6
 - [ ] Scansione UDP opzionale (`-sU`)
-- [ ] Test automatici con `pytest`
+
+### 🕐 v2.1 - Further improvements
+
+- [ ] Implementazione di una GUI
 
 Suggerimenti e segnalazioni sono benvenuti tramite le [Issues](../../issues).
 
