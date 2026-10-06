@@ -72,7 +72,6 @@ sudo python network_scanner.py 192.168.1.10 -s 1 -e 1024
 ```
 
 | Argomento | Descrizione |
-
 |---|---|
 | `target` | Indirizzo IP o hostname da scansionare |
 | `-s`, `--start` | Prima porta del range (inclusa, 1–65535) |
@@ -127,9 +126,7 @@ Scan completed in 0:03:12.481920
 ## Struttura del codice
 
 | Funzione | Ruolo |
-
 |---|---|
-
 | `port_scan()` | TCP connect scan sul range di porte |
 | `banner_grab()` | Lettura del banner di un servizio |
 | `vulnerability_scan()` | Scansione Nmap con OS detection, `-sV` e script `vuln` |
