@@ -1,92 +1,87 @@
 # Network Scanner
 
-Uno scanner di rete scritto in Python che esegue in un unico flusso la ricognizione base di un host: scansione delle porte TCP, banner grabbing e analisi delle vulnerabilità tramite Nmap.
+🇬🇧 **English** | 🇮🇹 [Italiano](README.it.md)
 
-> ⚠️ **Disclaimer:** usa questo strumento **solo su sistemi di tua proprietà o per cui hai un'autorizzazione esplicita**. La scansione non autorizzata di reti e host può essere illegale. L'autore non è responsabile di usi impropri.
+A Python network scanner that performs basic host reconnaissance in a single run: TCP port scanning, banner grabbing and vulnerability analysis with Nmap.
 
----
-
-## Indice
-
-- [Network Scanner](#network-scanner)
-  - [Indice](#indice)
-  - [Come funziona](#come-funziona)
-  - [Requisiti](#requisiti)
-  - [Installazione](#installazione)
-  - [Utilizzo](#utilizzo)
-  - [Esempio di output](#esempio-di-output)
-  - [Struttura del codice](#struttura-del-codice)
-  - [Limiti noti](#limiti-noti)
-  - [Roadmap](#roadmap)
-    - [✅ v1.0 — Completata](#-v10--completata)
-    - [🚧 v1.1 — Prestazioni](#-v11--prestazioni)
-    - [🔜 v1.2 — Qualità dei risultati](#-v12--qualità-dei-risultati)
-    - [🔭 v2.0 — Estensione del perimetro](#-v20--estensione-del-perimetro)
-    - [🕐 v2.1 - Further improvements](#-v21---further-improvements)
-  - [Autore](#autore)
+> ⚠️ **Disclaimer:** use this tool **only on systems you own or are explicitly authorised to test**. Unauthorised scanning of networks and hosts may be illegal. The author is not responsible for any misuse.
 
 ---
 
-## Come funziona
+## Table of contents
 
-La scansione avviene in tre fasi consecutive.
+- [How it works](#how-it-works)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Sample output](#sample-output)
+- [Code structure](#code-structure)
+- [Known limitations](#known-limitations)
+- [Roadmap](#roadmap)
+- [Author](#author)
+
+---
+
+## How it works
+
+The scan runs in three consecutive phases.
 
 **1. Port scan (TCP connect)**
-Per ogni porta nel range indicato, lo script tenta un handshake TCP completo. Se la connessione riesce, la porta viene considerata aperta. Il range è inclusivo: con `-s 1 -e 1024` vengono controllate le porte da 1 a 1024 comprese.
+For each port in the given range, the script attempts a full TCP handshake. If the connection succeeds, the port is marked as open. The range is inclusive: `-s 1 -e 1024` checks ports 1 through 1024.
 
 **2. Banner grabbing**
-Su ogni porta aperta, lo script si connette e legge i primi byte inviati dal servizio. Funziona con i servizi che si presentano per primi al client, come SSH, FTP e SMTP, e permette di identificare software e versione.
+On every open port, the script connects and reads the first bytes sent by the service. This works with services that greet the client first, such as SSH, FTP and SMTP, and helps identify the software and its version.
 
 **3. Vulnerability scan (Nmap)**
-Lancia Nmap con rilevamento del sistema operativo (`-O`), dei servizi e delle versioni (`-sV`) e con gli script NSE della categoria `vuln`. Per ogni porta vengono riportati il servizio individuato e l'output degli script, insieme alle ipotesi sul sistema operativo con la relativa accuratezza.
+Runs Nmap with OS detection (`-O`), service and version detection (`-sV`) and the NSE scripts in the `vuln` category. For each port it reports the detected service and the script output, along with OS guesses and their accuracy.
 
-Al termine viene mostrato il tempo totale impiegato.
+The total elapsed time is shown at the end.
 
-## Requisiti
+## Requirements
 
-- Python 3.6 o superiore
-- [Nmap](https://nmap.org/download.html) installato e presente nel `PATH`
-- Libreria [`python-nmap`](https://pypi.org/project/python-nmap/)
-- Privilegi di root o di amministratore per il rilevamento del sistema operativo (`-O`)
+- Python 3.6 or later
+- [Nmap](https://nmap.org/download.html) installed and available in your `PATH`
+- The [`python-nmap`](https://pypi.org/project/python-nmap/) library
+- Root or Administrator privileges for OS detection (`-O`)
 
-## Installazione
+## Installation
 
 ```bash
-git clone https://github.com/<tuo-utente>/<nome-repo>.git
-cd <nome-repo>
+git clone https://github.com/<your-username>/<repo-name>.git
+cd <repo-name>
 pip install python-nmap
 ```
 
-Verifica che Nmap sia installato:
+Check that Nmap is installed:
 
 ```bash
 nmap --version
 ```
 
-## Utilizzo
+## Usage
 
-**Da riga di comando**
+**Command line**
 
 ```bash
 sudo python network_scanner.py 192.168.1.10 -s 1 -e 1024
 ```
 
-| Argomento | Descrizione |
+| Argument | Description |
 |---|---|
-| `target` | Indirizzo IP o hostname da scansionare |
-| `-s`, `--start` | Prima porta del range (inclusa, 1–65535) |
-| `-e`, `--end` | Ultima porta del range (inclusa, 1–65535) |
-| `-h`, `--help` | Mostra l'help |
+| `target` | IP address or hostname to scan |
+| `-s`, `--start` | First port of the range (inclusive, 1–65535) |
+| `-e`, `--end` | Last port of the range (inclusive, 1–65535) |
+| `-h`, `--help` | Show the help message |
 
-**In modalità interattiva**
+**Interactive mode**
 
-Se avvii lo script senza argomenti, i parametri mancanti ti vengono chiesti a terminale:
+If you run the script without arguments, it prompts for any missing parameters:
 
 ```bash
 sudo python network_scanner.py
 ```
 
-**Come modulo**
+**As a module**
 
 ```python
 from network_scanner import network_scan
@@ -94,13 +89,13 @@ from network_scanner import network_scan
 network_scan("192.168.1.10", 1, 1024)
 ```
 
-La documentazione completa delle funzioni è consultabile con:
+Full function documentation is available with:
 
 ```bash
 python -m pydoc network_scanner
 ```
 
-## Esempio di output
+## Sample output
 
 ```text
 Starting network scan on 192.168.1.10:
@@ -121,70 +116,62 @@ Operating system guesses:
 Scan completed in 0:03:12.481920
 ```
 
-*L'output è indicativo e varia in base al target.*
+*Output is illustrative and depends on the target.*
 
-## Struttura del codice
+## Code structure
 
-| Funzione | Ruolo |
+| Function | Purpose |
 |---|---|
-| `port_scan()` | TCP connect scan sul range di porte |
-| `banner_grab()` | Lettura del banner di un servizio |
-| `vulnerability_scan()` | Scansione Nmap con OS detection, `-sV` e script `vuln` |
-| `print_vuln_results()` | Stampa di hostname, sistema operativo e output NSE |
-| `network_scan()` | Orchestrazione delle tre fasi e misura del tempo |
-| `parse_args()` | Gestione degli argomenti da riga di comando e dei prompt interattivi |
+| `port_scan()` | TCP connect scan over the port range |
+| `banner_grab()` | Reads a service's banner |
+| `vulnerability_scan()` | Nmap scan with OS detection, `-sV` and `vuln` scripts |
+| `print_vuln_results()` | Prints hostnames, operating system and NSE output |
+| `network_scan()` | Orchestrates the three phases and measures elapsed time |
+| `parse_args()` | Handles command-line arguments and interactive prompts |
 
-## Limiti noti
+## Known limitations
 
-- **Port scan lento:** la scansione è sequenziale con un timeout di 1 secondo per porta, quindi range ampi su host filtrati possono richiedere molto tempo.
-- **Porte analizzate da Nmap:** la fase Nmap usa le porte di default di Nmap, non il range indicato, e può durare diversi minuti.
-- **Servizi senza banner:** i servizi che attendono una richiesta dal client, come HTTP, di solito non restituiscono un banner.
-- **Protocolli supportati:** sono supportati solo IPv4 e TCP.
+- **Slow port scan:** scanning is sequential with a 1-second timeout per port, so large ranges on filtered hosts can take a long time.
+- **Ports scanned by Nmap:** the Nmap phase uses Nmap's default ports, not the range you specify, and can take several minutes.
+- **Services without banners:** services that wait for a client request, such as HTTP, usually return no banner.
+- **Supported protocols:** only IPv4 and TCP are supported.
 
 ---
 
 ## Roadmap
 
-### ✅ v1.0 — Completata
+### ✅ v1.1 — Completed
+- [x] Inclusive port range
+- [x] Timeout applied to the banner-grabbing connection too
+- [x] Correct per-port output of NSE `vuln` scripts
+- [x] Hostname support in Nmap results
+- [x] Command-line interface with `argparse`, with interactive fallback
+- [x] Port validation and clean Ctrl+C interruption
+- [x] Full code documentation through docstrings
 
-- [x] Range di porte inclusivo
-- [x] Timeout applicato anche alla connessione del banner grabbing
-- [x] Output corretto degli script NSE `vuln`, porta per porta
-- [x] Supporto agli hostname nei risultati Nmap
-- [x] Interfaccia da riga di comando con `argparse`, con fallback interattivo
-- [x] Validazione delle porte e interruzione pulita con Ctrl+C
-- [x] Documentazione completa del codice tramite docstring
+### 🚧 v1.2 — Performance
+- [ ] Concurrent port scan with `ThreadPoolExecutor` or `asyncio`
+- [ ] Configurable timeout from the command line
+- [ ] Nmap scan limited to the open ports found
+- [ ] `--no-vuln` flag for fast reconnaissance without Nmap
+- [ ] Startup check for Nmap and root privileges
 
-### 🚧 v1.1 — Prestazioni
+### 🔜 v1.3 — Result quality
+- [ ] Active probes for "silent" services, such as an HTTP `HEAD` request and the TLS banner on port 443
+- [ ] Export results to JSON and CSV (`-o report.json`)
+- [ ] Logging with verbosity levels (`-v`, `-vv`)
 
-- [ ] Port scan concorrente con `ThreadPoolExecutor` o `asyncio`
-- [ ] Timeout configurabile da riga di comando
-- [ ] Scansione Nmap limitata alle sole porte trovate aperte
-- [ ] Flag `--no-vuln` per una ricognizione rapida senza Nmap
-- [ ] Controllo iniziale della presenza di Nmap e dei privilegi di root
+### 🔭 v2.0 — Wider scope
+- [ ] Multiple targets: CIDR ranges and host files
+- [ ] Host discovery phase
+- [ ] IPv6 support
+- [ ] Optional UDP scanning (`-sU`)
+- [ ] Automated tests with `pytest`
 
-### 🔜 v1.2 — Qualità dei risultati
-
-- [ ] Probe attivi per i servizi "silenziosi", come la richiesta HTTP `HEAD` e il banner TLS sulla 443
-- [ ] Esportazione dei risultati in JSON e CSV (`-o report.json`)
-- [ ] Logging con livelli di verbosità (`-v`, `-vv`)
-- [ ] Ricerca vulnerabilità in Database noti CVE
-
-### 🔭 v2.0 — Estensione del perimetro
-
-- [ ] Scansione di più target: range CIDR e file di host
-- [ ] Fase di host discovery
-- [ ] Supporto IPv6
-- [ ] Scansione UDP opzionale (`-sU`)
-
-### 🕐 v2.1 - Further improvements
-
-- [ ] Implementazione di una GUI
-
-Suggerimenti e segnalazioni sono benvenuti tramite le [Issues](../../issues).
+Suggestions and bug reports are welcome through [Issues](../../issues).
 
 ---
 
-## Autore
+## Author
 
 **Giulio Malini** (*Erchomai*)
