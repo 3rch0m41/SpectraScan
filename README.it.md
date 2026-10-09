@@ -1,4 +1,4 @@
-# Network Scanner
+# SpectraScan
 
 Uno scanner di rete scritto in Python che esegue in un unico flusso la ricognizione base di un host: scansione delle porte TCP, banner grabbing e analisi delle vulnerabilità tramite Nmap.
 
@@ -8,7 +8,7 @@ Uno scanner di rete scritto in Python che esegue in un unico flusso la ricognizi
 
 ## Indice
 
-- [Network Scanner](#network-scanner)
+- [SpectraScan](#spectrascan)
   - [Indice](#indice)
   - [Come funziona](#come-funziona)
   - [Requisiti](#requisiti)
@@ -52,8 +52,8 @@ Al termine viene mostrato il tempo totale impiegato.
 ## Installazione
 
 ```bash
-git clone https://github.com/<tuo-utente>/<nome-repo>.git
-cd <nome-repo>
+git clone https://github.com/3rch0m41/SpectraScan
+cd SpectraScan
 pip install python-nmap
 ```
 

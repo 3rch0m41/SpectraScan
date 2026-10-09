@@ -1,4 +1,4 @@
-# Network Scanner
+# Spectra Scan
 
 🇬🇧 **English** | 🇮🇹 [Italiano](README.it.md)
 
@@ -10,15 +10,21 @@ A Python network scanner that performs basic host reconnaissance in a single run
 
 ## Table of contents
 
-- [How it works](#how-it-works)
-- [Requirements](#requirements)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Sample output](#sample-output)
-- [Code structure](#code-structure)
-- [Known limitations](#known-limitations)
-- [Roadmap](#roadmap)
-- [Author](#author)
+- [Spectra Scan](#spectra-scan)
+  - [Table of contents](#table-of-contents)
+  - [How it works](#how-it-works)
+  - [Requirements](#requirements)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Sample output](#sample-output)
+  - [Code structure](#code-structure)
+  - [Known limitations](#known-limitations)
+  - [Roadmap](#roadmap)
+    - [✅ v1.1 — Completed](#-v11--completed)
+    - [🚧 v1.2 — Performance](#-v12--performance)
+    - [🔜 v1.3 — Result quality](#-v13--result-quality)
+    - [🔭 v2.0 — Wider scope](#-v20--wider-scope)
+  - [Author](#author)
 
 ---
 
@@ -47,8 +53,8 @@ The total elapsed time is shown at the end.
 ## Installation
 
 ```bash
-git clone https://github.com/<your-username>/<repo-name>.git
-cd <repo-name>
+git clone https://github.com/3rch0m41/SpectraScan
+cd SpectraScan
 pip install python-nmap
 ```
 
